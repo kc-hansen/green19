@@ -11,26 +11,26 @@ const {
     SERVER_PORT,
     SESSION_SECRET,
     CONNECTION_STRING,
-    DOMAIN,
-    CLIENTID,
+    // DOMAIN,
+    // CLIENTID,
     CLIENT_SECRET,
-    CALLBACK_URL,
-    redirectINCOME,
-    redirectCONTINUE,
-    GAME
+    // CALLBACK_URL,
+    // redirectINCOME,
+    // redirectCONTINUE,
+    // GAME
 } = process.env
 
 const app = express().use(bodyParser.json());
 app.use(express.static(`${__dirname}/../build`));
 
-app.use(session({
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true
-}))
+// app.use(session({
+//     secret: SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true
+// }))
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db);
@@ -87,21 +87,21 @@ massive(CONNECTION_STRING).then(db => {
 
 
 
-app.get('/auth/me', (req, res) => {
-    if (!req.user) {
-        res.status(404).send('Not logged in')
-    } else {
-        res.status(200).send(req.user);
-    }
-})
+// app.get('/auth/me', (req, res) => {
+//     if (!req.user) {
+//         res.status(404).send('Not logged in')
+//     } else {
+//         res.status(200).send(req.user);
+//     }
+// })
 
-app.get('/resume', (req, res) => {
-    if (!req.user) {
-        res.status(404).send('Not logged in')
-    } else {
-        res.status(200).redirect(GAME)
-    }
-})
+// app.get('/resume', (req, res) => {
+//     if (!req.user) {
+//         res.status(404).send('Not logged in')
+//     } else {
+//         res.status(200).redirect(GAME)
+//     }
+// })
 
 
 
@@ -121,9 +121,9 @@ app.get('/resume', (req, res) => {
     // })
 
 
-    app.get('/logout', (req, res) => {
-        req.logout();
-    })
+    // app.get('/logout', (req, res) => {
+    //     req.logout();
+    // })
 
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../build/index.html'));
